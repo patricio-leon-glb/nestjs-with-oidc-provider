@@ -18,6 +18,8 @@ const consumable = new Set([
   'BackchannelAuthenticationRequest',
 ]);
 
+type Payload = Record<'payload', any>;
+
 function grantKeyFor(id) {
   return `grant:${id}`;
 }
@@ -43,7 +45,8 @@ export class RedisAdapter {
       : JSON.stringify(payload);
 
     const multi = client.multi();
-    multi[consumable.has(this.name) ? 'hmset' : 'set'](key, store as string);
+    const element: string = consumable.has(this.name) ? 'hmset' : 'set';
+    multi[element](key, store as string);
 
     if (expiresIn) {
       multi.expire(key, expiresIn);
@@ -87,7 +90,7 @@ export class RedisAdapter {
     if (typeof data === 'string') {
       return JSON.parse(data);
     }
-    const { payload, ...rest } = data;
+    const { payload = {}, ...rest } = data as Payload;
     return {
       ...rest,
       ...JSON.parse(payload),
