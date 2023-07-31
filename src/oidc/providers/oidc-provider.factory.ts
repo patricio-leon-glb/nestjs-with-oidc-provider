@@ -1,15 +1,11 @@
+import { AccountProvider } from './account.provider';
 import { RedisAdapter } from './redis.provider';
-
-async function interactionsUrl(ctx, interaction) {
-  console.log({ ctx, interaction });
-  return `/interaction/${interaction.uid}`;
-}
 
 export const OIDC_INSTANCE = Symbol('OIDC_INSTANCE');
 
 export const oidcProviderFactory = {
   provide: OIDC_INSTANCE,
-  useFactory: async (): Promise<any> => {
+  useFactory: async (accountProvider: AccountProvider): Promise<any> => {
     const oidcProvider = (await import('oidc-provider')).default;
 
     const configuration = {
@@ -52,13 +48,19 @@ export const oidcProviderFactory = {
           },
         ],
       },
-      interactions: {
-        url: interactionsUrl,
+      features: {
+        userinfo: { enabled: true },
+      },
+      findAccount(ctx, sub, content) {
+        return accountProvider.findAccount(ctx, sub, content);
+      },
+      devInteractions: {
+        enabled: false,
       },
     };
 
     const oidc = new oidcProvider(`http://localhost:3000`, configuration);
     return oidc;
   },
-  inject: [],
+  inject: [AccountProvider],
 };
