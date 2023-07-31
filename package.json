@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "prepare": "ts-patch install"
   },
   "dependencies": {
     "@nestia/core": "^1.4.4",
@@ -29,6 +30,7 @@
     "@nestjs/platform-fastify": "^10.0.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "ejs": "^3.1.9",
     "ioredis": "^5.3.2",
     "nestia": "^4.3.2",
     "oidc-provider": "^8.2.2",
@@ -39,6 +41,7 @@
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/express": "^4.17.17",
+    "@types/ioredis": "^5.0.0",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
     "@types/oidc-provider": "^8.2.0",
@@ -55,8 +58,9 @@
     "ts-jest": "^29.1.0",
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
+    "ts-patch": "^3.0.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.6"
   },
   "jest": {
     "moduleFileExtensions": [
