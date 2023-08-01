@@ -81,13 +81,12 @@ export class OidcController {
       const { uid, prompt, params, session } =
         await this.provider.interactionDetails(req, res);
 
-      const client = await this.provider.Client.find(params.client_id);
+      const _client = await this.provider.Client.find(params.client_id);
 
       switch (prompt.name) {
         case 'login': {
           return res.render('login', {
-            layout: '_layout',
-            client,
+            _client,
             uid,
             details: prompt.details,
             params,
@@ -102,7 +101,7 @@ export class OidcController {
         }
         case 'consent': {
           return res.render('interaction', {
-            client,
+            _client,
             uid,
             details: prompt.details,
             params,
@@ -139,11 +138,10 @@ export class OidcController {
         const { uid, prompt, params, session } =
           await this.provider.interactionDetails(req, res);
 
-        const client = await this.provider.Client.find(params.client_id);
+        const _client = await this.provider.Client.find(params.client_id);
         return res.render('login', {
           error_message: 'User or password error',
-          layout: '_layout',
-          client,
+          _client,
           uid,
           details: prompt.details,
           params,

@@ -1,7 +1,4 @@
-<div class="login-client-image">
-  <% if (client.logoUri) { %><img src="<%= client.logoUri %>"><% } %>
-</div>
-
+<%- include('_header') %>
 <ul>
 <% if ([details.missingOIDCScope, details.missingOIDCClaims, details.missingResourceScopes].filter(Boolean).length === 0) { %>
   <li>the client is asking you to confirm previously given authorization</li>
@@ -53,3 +50,4 @@
 <form autocomplete="off" action="/oidc/interaction/<%= uid %>/confirm" method="post">
   <button autofocus type="submit" class="login login-submit">Continue</button>
 </form>
+<%- include('_footer') %>

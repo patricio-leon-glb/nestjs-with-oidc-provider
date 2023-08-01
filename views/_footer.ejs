@@ -1,0 +1,40 @@
+<div class="login-help">
+  <a href="/interaction/<%= uid %>/abort">[ Cancel ]</a>
+  <% if (_client.tosUri) { %>
+    <a href="<%= _client.tosUri %>">[ Terms of Service ]</a>
+  <% } %>
+  <% if (_client.policyUri) { %>
+    <a href="<%= _client.policyUri %>">[ Privacy Policy ]</a>
+  <% } %>
+</div>
+</div>
+<div class="grant-debug">
+<details>
+  <summary style="text-align: center;">(Click to expand) DEBUG information</summary>
+  <div>
+    <strong>uid</strong>: <%= uid %>
+  </div>
+
+  <% if (session) { %>
+  <div>
+    SESSION <br>
+   ========= <br>
+    <%- session %>
+  </div>
+  <% } %>
+
+  <div>
+    PARAMS <br>
+   ======== <br>
+    <%- dbg.params %>
+  </div>
+
+  <div>
+    PROMPT <br>
+   ======== <br>
+    <%- dbg.prompt %>
+  </div>
+</details>
+</div>
+</body>
+</html>
